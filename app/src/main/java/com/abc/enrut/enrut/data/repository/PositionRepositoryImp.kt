@@ -1,5 +1,5 @@
-package com.abc.enrut.data.repository
-import com.abc.enrut.domain.repository.PositionRepository
+package com.abc.enrut.enrut.data.repository
+import com.abc.enrut.enrut.domain.repository.PositionRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

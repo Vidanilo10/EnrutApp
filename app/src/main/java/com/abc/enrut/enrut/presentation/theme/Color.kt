@@ -1,4 +1,4 @@
-package com.abc.enrut.presentation.theme
+package com.abc.enrut.enrut.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

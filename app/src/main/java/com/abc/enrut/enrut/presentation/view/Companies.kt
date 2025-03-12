@@ -1,4 +1,4 @@
-package com.abc.enrut.presentation.view
+package com.abc.enrut.enrut.presentation.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -10,13 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-
-import com.abc.enrut.presentation.viewmodel.UserViewModel
+import com.abc.enrut.enrut.presentation.viewmodel.CompanyViewModel
 
 @Composable
-fun UserApp() {
-    val viewModel: UserViewModel = viewModel()
-    val user = viewModel.username.value
+fun CompanyApp() {
+    val viewModel: CompanyViewModel = viewModel()
+    val company = viewModel.company.value
 
     Column(
         modifier = Modifier
@@ -26,14 +25,14 @@ fun UserApp() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = user,
+            text = company,
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(16.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { viewModel.login() }) {
-            Text("Refresh user")
+        Button(onClick = { viewModel.fetchCompanies() }) {
+            Text("Refresh company")
         }
     }
 

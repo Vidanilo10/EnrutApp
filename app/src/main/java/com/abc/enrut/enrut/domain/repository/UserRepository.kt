@@ -1,6 +1,6 @@
-package com.abc.enrut.domain.repository
+package com.abc.enrut.enrut.domain.repository
 
-import com.abc.enrut.domain.model.User
+import com.abc.enrut.enrut.domain.model.User
 import retrofit2.http.POST
 
 interface UserRepository {

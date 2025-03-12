@@ -1,6 +1,6 @@
-package com.abc.enrut.data.repository
+package com.abc.enrut.enrut.data.repository
 
-import com.abc.enrut.domain.repository.UserRepository
+import com.abc.enrut.enrut.domain.repository.UserRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

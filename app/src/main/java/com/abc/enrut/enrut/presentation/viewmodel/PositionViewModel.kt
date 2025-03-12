@@ -1,9 +1,9 @@
-package com.abc.enrut.presentation.viewmodel
+package com.abc.enrut.enrut.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.abc.enrut.data.repository.PositionRepositoryImp
+import com.abc.enrut.enrut.data.repository.PositionRepositoryImp
 
 
 class PositionViewModel : ViewModel(){

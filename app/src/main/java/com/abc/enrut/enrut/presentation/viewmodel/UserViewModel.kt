@@ -1,9 +1,9 @@
-package com.abc.enrut.presentation.viewmodel
+package com.abc.enrut.enrut.presentation.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.abc.enrut.data.repository.UserRepositoryImp
+import com.abc.enrut.enrut.data.repository.UserRepositoryImp
 import kotlinx.coroutines.launch
 
 class UserViewModel: ViewModel() {

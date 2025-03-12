@@ -16,9 +16,8 @@
         android:theme="@style/Theme.Enrut"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".enrut.presentation.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.Enrut">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
