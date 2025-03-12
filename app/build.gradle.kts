@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.abc.enrut"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.abc.enrut"

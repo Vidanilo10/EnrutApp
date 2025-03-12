@@ -1,4 +1,4 @@
-package com.abc.enrut.ui.theme
+package com.abc.enrut.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
