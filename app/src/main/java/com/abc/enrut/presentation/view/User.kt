@@ -10,14 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.abc.enrut.domain.model.User
-import com.abc.enrut.presentation.viewmodel.CompanyViewModel
+
 import com.abc.enrut.presentation.viewmodel.UserViewModel
 
 @Composable
 fun UserApp() {
     val viewModel: UserViewModel = viewModel()
-    val company = viewModel.username.value
+    val user = viewModel.username.value
 
     Column(
         modifier = Modifier
@@ -27,14 +26,14 @@ fun UserApp() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = company,
+            text = user,
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(16.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { viewModel.login() }) {
-            Text("Refresh company")
+            Text("Refresh user")
         }
     }
 
