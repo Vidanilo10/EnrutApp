@@ -18,7 +18,7 @@ class CompanyViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 val response = CompanyRepositoryImp.api.queryCompanies()
-                company.value = response.id
+                println(response)
             } catch (e: Exception) {
                 company.value = "Error: ${e.message}"
             }
