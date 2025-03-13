@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.abc.enrut.enrut.data.repository.UserRepositoryImp
+import com.abc.enrut.enrut.domain.model.UserAuth
 import kotlinx.coroutines.launch
 
 class UserViewModel: ViewModel() {
@@ -16,11 +17,13 @@ class UserViewModel: ViewModel() {
 
     fun login() {
         viewModelScope.launch {
+            val userAuthInst = UserAuth()
+
             try {
-                val response = UserRepositoryImp.api.login()
-                username.value = response.username
+                val response = UserRepositoryImp.api.login(auth=userAuthInst)
+                println(response)
             } catch (e: Exception) {
-                username.value = "Error: ${e.message}"
+                throw e
             }
         }
     }
