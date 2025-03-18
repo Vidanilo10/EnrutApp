@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object UserRepositoryImp {
-    private val BASE_URL = "https://cognito-idp.us-east-2.amazonaws.com"
+    private val BASE_URL = "https://dev-api.enrut.info"
 
     val api: UserRepository by lazy {
         Retrofit.Builder()

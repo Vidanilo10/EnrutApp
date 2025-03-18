@@ -21,7 +21,7 @@ class UserViewModel: ViewModel() {
 
             try {
                 val response = UserRepositoryImp.api.login(auth=userAuthInst)
-                println(response)
+
             } catch (e: Exception) {
                 throw e
             }

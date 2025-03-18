@@ -8,7 +8,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface UserRepository {
-    @Headers("X-Amz-Target: AWSCognitoIdentityProviderService.InitiateAuth", "Content-Type: application/x-amz-json-1.1")
-    @POST("/")
+    //@Headers("Content-Type: application/json")
+    @POST("/login")
     suspend fun login(@Body auth: UserAuth): AuthModel
 }
