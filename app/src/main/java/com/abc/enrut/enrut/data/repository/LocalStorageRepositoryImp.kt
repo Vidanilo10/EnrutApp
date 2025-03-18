@@ -4,10 +4,10 @@ import com.abc.enrut.enrut.data.local.dao.TokenDao
 import com.abc.enrut.enrut.domain.model.TokenModel
 import com.abc.enrut.enrut.domain.model.toTokenEntity
 import com.abc.enrut.enrut.domain.repository.LocalStorageRepository
-import javax.inject.Inject
 
 
-class LocalStorageRepositoryImp @Inject constructor(private val tokenDao: TokenDao): LocalStorageRepository{
+
+class LocalStorageRepositoryImp constructor(private val tokenDao: TokenDao): LocalStorageRepository{
     override suspend fun saveTokenValue(tokenModel: TokenModel): Boolean {
         try {
             val result = tokenDao.insertTokenValue(tokenModel.toTokenEntity())
@@ -17,10 +17,10 @@ class LocalStorageRepositoryImp @Inject constructor(private val tokenDao: TokenD
         }
     }
 
-    override suspend fun getTokenByValue(value: String): TokenModel {
+    override suspend fun getTokenByValue(): TokenModel {
         try {
             var tokenValue: String = ""
-            tokenDao.getTokenByValue(value).map {
+            tokenDao.getTokenByValue().map {
                 tokenValue += it.value
             }
             return TokenModel(

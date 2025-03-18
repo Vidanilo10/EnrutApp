@@ -8,8 +8,8 @@ import com.abc.enrut.enrut.data.local.entity.TokenEntity
 
 @Dao
 interface TokenDao {
-    @Query("SELECT * FROM token WHERE value LIKE '%' || :value || '%'")
-    suspend fun getTokenByValue(value: String): MutableList<TokenEntity>
+    @Query("SELECT * FROM token LIMIT 1")
+    suspend fun getTokenByValue(): MutableList<TokenEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTokenValue(tokenEntity: TokenEntity): Long

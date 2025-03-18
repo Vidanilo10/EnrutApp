@@ -6,6 +6,6 @@ interface LocalStorageRepository {
 
     suspend fun saveTokenValue(tokenModel: TokenModel): Boolean
 
-    suspend fun getTokenByValue(value: String): TokenModel
+    suspend fun getTokenByValue(): TokenModel
 
 }
