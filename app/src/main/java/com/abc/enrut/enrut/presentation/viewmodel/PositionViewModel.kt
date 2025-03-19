@@ -1,6 +1,5 @@
 package com.abc.enrut.enrut.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +23,7 @@ class PositionViewModel @Inject constructor(
 
     val position = mutableStateOf("Creating position...")
 
-    val currentLocation: MutableLiveData<Location?> = MutableLiveData()
+    private val currentLocation: MutableLiveData<Location?> = MutableLiveData()
 
     init {
         fetchPosition()
@@ -35,11 +34,11 @@ class PositionViewModel @Inject constructor(
     }
 
 
-    fun getLatitude(): Double? {
+    private fun getLatitude(): Double? {
         return currentLocation.value?.latitude
     }
 
-    fun getLongitude(): Double? {
+    private fun getLongitude(): Double? {
         return currentLocation.value?.longitude
     }
 
@@ -51,7 +50,9 @@ class PositionViewModel @Inject constructor(
                     currentLocation.postValue(location)
                 }
                 val r = getLongitude()
+                val r1 = getLatitude()
                 print(r)
+                print(r1)
                 val response = ApiEnrutRepositoryImp.api.registerPosition(authorization = Constants.bearerString.plus(getToken()))
                 print(response)
                 position.value = response.tripId
