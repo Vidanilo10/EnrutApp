@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.abc.enrut.enrut.presentation.theme.EnrutTheme
 import com.abc.enrut.enrut.presentation.view.CompanyApp
+import com.abc.enrut.enrut.presentation.view.PositionApp
 import com.abc.enrut.enrut.presentation.view.UserApp
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             EnrutTheme {
-                CompanyApp()
+                PositionApp()
             }
         }
     }
