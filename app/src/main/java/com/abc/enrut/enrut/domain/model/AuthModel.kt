@@ -5,10 +5,3 @@ data class AuthModel(
     val accessToken: String,
     val refreshToken: String
 )
-
-
-data class AuthenticationResult(
-    val idToken: String,
-    val accessToken: String,
-    val refreshToken: String
-)

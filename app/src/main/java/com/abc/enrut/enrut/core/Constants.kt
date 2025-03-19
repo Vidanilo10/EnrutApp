@@ -5,4 +5,5 @@ object Constants {
     const val password = "And3rs0n##695401"
     const val hostname = "https://dev-api.enrut.info"
     const val loginEnpoint = "/login"
+    const val companiesEndpoint = "/companies"
 }
