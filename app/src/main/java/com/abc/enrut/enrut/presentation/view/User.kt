@@ -9,13 +9,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 import com.abc.enrut.enrut.presentation.viewmodel.UserViewModel
 
+
 @Composable
 fun UserApp() {
-    val viewModel: UserViewModel = viewModel()
+    val viewModel: UserViewModel = hiltViewModel()
     val user = viewModel.username.value
 
     Column(
