@@ -3,6 +3,7 @@ package com.abc.enrut.enrut.presentation.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.abc.enrut.enrut.core.Constants
 import com.abc.enrut.enrut.data.repository.ApiEnrutRepositoryImp
 import com.abc.enrut.enrut.domain.model.UserAuth
 import com.abc.enrut.enrut.domain.repository.DatastoreRepository
@@ -25,14 +26,14 @@ class UserViewModel @Inject constructor(
 
     private fun storeToken(value: String) = runBlocking {
         datastoreRepository.saveToken(
-            key = "Token",
+            key = Constants.tokenString,
             value = value
         )
     }
 
 
     private fun getToken() = runBlocking {
-        datastoreRepository.getToken(key="Token")
+        datastoreRepository.getToken(key=Constants.tokenString)
     }
 
 
