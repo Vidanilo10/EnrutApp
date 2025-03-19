@@ -1,9 +1,10 @@
 package com.abc.enrut.enrut.presentation.viewmodel
+
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.abc.enrut.enrut.data.repository.PositionRepositoryImp
+import com.abc.enrut.enrut.data.repository.ApiEnrutRepositoryImp
 
 
 class PositionViewModel : ViewModel(){
@@ -16,7 +17,7 @@ class PositionViewModel : ViewModel(){
     fun fetchPosition() {
         viewModelScope.launch {
             try {
-                val response = PositionRepositoryImp.api.registerPosition()
+                val response = ApiEnrutRepositoryImp.api.registerPosition()
 
                 position.value = response.tripId
             } catch (e: Exception) {

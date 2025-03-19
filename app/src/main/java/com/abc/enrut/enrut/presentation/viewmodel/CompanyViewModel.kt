@@ -3,7 +3,7 @@ package com.abc.enrut.enrut.presentation.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.abc.enrut.enrut.data.repository.CompanyRepositoryImp
+import com.abc.enrut.enrut.data.repository.ApiEnrutRepositoryImp
 import kotlinx.coroutines.launch
 
 class CompanyViewModel: ViewModel() {
@@ -17,7 +17,7 @@ class CompanyViewModel: ViewModel() {
     fun fetchCompanies() {
         viewModelScope.launch {
             try {
-                val response = CompanyRepositoryImp.api.queryCompanies()
+                val response = ApiEnrutRepositoryImp.api.queryCompanies()
                 println(response)
             } catch (e: Exception) {
                 company.value = "Error: ${e.message}"

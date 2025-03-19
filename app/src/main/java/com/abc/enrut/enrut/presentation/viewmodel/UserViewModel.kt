@@ -3,7 +3,7 @@ package com.abc.enrut.enrut.presentation.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.abc.enrut.enrut.data.repository.UserRepositoryImp
+import com.abc.enrut.enrut.data.repository.ApiEnrutRepositoryImp
 import com.abc.enrut.enrut.domain.model.UserAuth
 import com.abc.enrut.enrut.domain.repository.DatastoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -42,7 +42,7 @@ class UserViewModel @Inject constructor(
             val userAuthInst = UserAuth()
 
             try {
-                val response = UserRepositoryImp.api.login(auth=userAuthInst)
+                val response = ApiEnrutRepositoryImp.api.login(auth=userAuthInst)
                 println(response)
 
                 storeToken(value = response.idToken)

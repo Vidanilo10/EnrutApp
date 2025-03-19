@@ -6,5 +6,6 @@ object Constants {
     const val hostname = "https://dev-api.enrut.info"
     const val loginEnpoint = "/login"
     const val companiesEndpoint = "/companies"
+    const val positionsEndpoint = "/companies/AYACUCHO-2024/vehicles/AYACUCHO-02/positions"
     const val dataStoreName = "DATASTORE-NAME"
 }
