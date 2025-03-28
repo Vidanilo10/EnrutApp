@@ -96,3 +96,12 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
+
+kotlin {
+    compilerOptions {
+        if (System.getProperty("idea.active") == "true") {
+            println("Enable coroutine debugging")
+            freeCompilerArgs = listOf("-Xdebug")
+        }
+    }
+}

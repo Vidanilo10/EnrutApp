@@ -38,9 +38,10 @@ fun PositionApp() {
             modifier = Modifier.padding(16.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { viewModel.fetchPosition() }) {
+        Button(onClick = { viewModel.getCurrentLocation() }) {
             Text("Refresh company")
         }
+
     }
 
 }

@@ -1,38 +1,68 @@
 package com.abc.enrut.enrut.data.repository
 
-import android.annotation.SuppressLint
+import android.Manifest
+import android.app.Application
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
-import com.abc.enrut.enrut.domain.model.Location
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
+import android.content.pm.PackageManager
+import android.location.LocationManager
+import androidx.core.content.ContextCompat
 
 import com.abc.enrut.enrut.domain.repository.LocationRepository
-import com.abc.enrut.enrut.presentation.viewmodel.PositionViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
+import kotlin.coroutines.resume
 
 
+@ExperimentalCoroutinesApi
 class LocationRepositoryImp @Inject constructor(
-    private val context: Context
+    private val locationClient: FusedLocationProviderClient,
+    private val application: Application
 ): LocationRepository{
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    override suspend fun getCurrentLocation(): android.location.Location? {
+        val manifestOutput = Manifest.permission.ACCESS_FINE_LOCATION
 
-    @SuppressLint("MissingPermission")
-    override suspend fun getCurrentLocation(callback: (Location?) -> Unit) {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: android.location.Location? ->
-                // Convert Android's Location to the domain model
-                val domainLocation = location?.let {
-                    Location(it.latitude, it.longitude)
+        val hasAccessFineLocationPermission = ContextCompat.checkSelfPermission(
+            application,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+        val hasAccessCoarseLocationPermission = ContextCompat.checkSelfPermission(
+            application,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+
+        val locationManager = application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+
+        /*
+        if(!hasAccessCoarseLocationPermission || !hasAccessFineLocationPermission || !isGpsEnabled) {
+            return null
+        }
+         */
+        return suspendCancellableCoroutine { cont ->
+            locationClient.lastLocation.apply {
+                if(isComplete) {
+                    if(isSuccessful) {
+                        cont.resume(result)
+                    } else {
+                        cont.resume(null)
+                    }
+                    return@suspendCancellableCoroutine
                 }
-                // Call the callback with the result
-                callback(domainLocation)
+                addOnSuccessListener {
+                    cont.resume(it)
+                }
+                addOnFailureListener {
+                    cont.resume(null)
+                }
+                addOnCanceledListener {
+                    cont.cancel()
+                }
             }
+        }
     }
 
 }

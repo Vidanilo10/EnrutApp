@@ -3,30 +3,44 @@ package com.abc.enrut.enrut.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.abc.enrut.enrut.core.Constants
 import com.abc.enrut.enrut.data.repository.ApiEnrutRepositoryImp
 import com.abc.enrut.enrut.domain.model.Location
+import com.abc.enrut.enrut.domain.model.Position
+import com.abc.enrut.enrut.domain.model.PositionsBody
 import com.abc.enrut.enrut.domain.repository.DatastoreRepository
 import com.abc.enrut.enrut.domain.repository.LocationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.runBlocking
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+import android.location.Location as AndroidLocation
 
 
+@Suppress("UNREACHABLE_CODE")
 @HiltViewModel
 class PositionViewModel @Inject constructor(
     private val datastoreRepository: DatastoreRepository,
     private val locationRepository: LocationRepository
 ): ViewModel(){
 
-    val position = mutableStateOf("Creating position...")
 
-    private val currentLocation: MutableLiveData<Location?> = MutableLiveData()
+    val position = mutableStateOf("Position ...")
+
+    private val _currentLocation = MutableLiveData<Location?>()
+    val currentLocation: LiveData<Location?> get() = _currentLocation
+
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     init {
-        fetchPosition()
+        getCurrentLocation()
     }
 
     private fun getToken() = runBlocking {
@@ -34,35 +48,72 @@ class PositionViewModel @Inject constructor(
     }
 
 
-    private fun getLatitude(): Double? {
-        return currentLocation.value?.latitude
+    suspend fun writePositions(positions: PositionsBody) {
+        val token = Constants.bearerString.plus(getToken())
+
+        try {
+            val response = ApiEnrutRepositoryImp.api.registerPosition(
+                authorization = Constants.bearerString.plus(getToken()),
+                position = positions
+            )
+            println(response)
+        } catch (e: Exception) {
+           val error = "Error: ${e.message}"
+            print(error)
+        }
+
     }
 
-    private fun getLongitude(): Double? {
-        return currentLocation.value?.longitude
+    fun getPositionsData(location: AndroidLocation): PositionsBody {
+
+        val tim = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS").withZone(ZoneOffset.UTC).format(Instant.now())
+
+        if (tim is String){
+            print("foo")
+        }
+
+        val position = Position(
+            timestamp = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS").withZone(ZoneOffset.UTC).format(Instant.now()),
+            latitude = location.latitude,
+            longitude = location.longitude,
+            speed = location.speed.toString(),
+            altitude = location.altitude,
+            accuracy = location.accuracy.toDouble(),
+            tripId = "trip789-labios"
+        )
+
+
+        return PositionsBody(
+            positions = arrayOf(position)
+        )
+
     }
 
 
-    fun fetchPosition() {
+    fun getCurrentLocation() {
+        _isLoading.value = true
         viewModelScope.launch {
             try {
-                locationRepository.getCurrentLocation { location ->
-                    currentLocation.postValue(location)
+                val location = locationRepository.getCurrentLocation()
+
+                val data = location?.let { getPositionsData(location= it) }
+
+                if (data != null) {
+                    writePositions(
+                        positions = data
+                    )
                 }
-                val r = getLongitude()
-                val r1 = getLatitude()
-                print(r)
-                print(r1)
-                val response = ApiEnrutRepositoryImp.api.registerPosition(authorization = Constants.bearerString.plus(getToken()))
-                print(response)
-                position.value = response.tripId
+
+
             } catch (e: Exception) {
-                position.value = "Error: ${e.message}"
+                // Handle exceptions if necessary
+                _currentLocation.value = null
+            } finally {
+                _isLoading.value = false
+
             }
         }
     }
-
-
 
 }
 

@@ -8,7 +8,7 @@ object Constants {
 
     const val loginEnpoint = "/login"
     const val companiesEndpoint = "/companies"
-    const val positionsEndpoint = "/companies/AYACUCHO-2024/vehicles/AYACUCHO-02/positions"
+    const val positionsEndpoint = "/companies/RAPIDO_SANTA/vehicles/BAM579/positions"
 
     const val dataStoreName = "DATASTORE-NAME"
 
