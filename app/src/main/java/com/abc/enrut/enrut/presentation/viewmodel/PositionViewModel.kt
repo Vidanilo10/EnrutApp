@@ -53,7 +53,7 @@ class PositionViewModel @Inject constructor(
 
         try {
             val response = ApiEnrutRepositoryImp.api.registerPosition(
-                authorization = Constants.bearerString.plus(getToken()),
+                authorization = token,
                 position = positions
             )
             println(response)
@@ -72,14 +72,14 @@ class PositionViewModel @Inject constructor(
             print("foo")
         }
 
-        val position = Position(
-            timestamp = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS").withZone(ZoneOffset.UTC).format(Instant.now()),
-            latitude = location.latitude,
-            longitude = location.longitude,
-            speed = location.speed.toString(),
-            altitude = location.altitude,
-            accuracy = location.accuracy.toDouble(),
-            tripId = "trip789-labios"
+        val position = mapOf(
+            "timestamp" to DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS").withZone(ZoneOffset.UTC).format(Instant.now()),
+            "latitude" to location.latitude,
+            "longitude" to location.longitude,
+            "speed" to location.speed.toDouble(),
+            "altitude" to location.altitude,
+            "accuracy" to location.accuracy.toDouble(),
+            "tripId" to "trip789-labios"
         )
 
 

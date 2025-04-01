@@ -11,7 +11,7 @@ data class Position(
 )
 
 data class PositionsBody(
-    val positions: Array<Position>
+    val positions: Array<Any>
 )
 
 data class PositionsResponse(
